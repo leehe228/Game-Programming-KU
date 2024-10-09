@@ -55,17 +55,17 @@ public class EnemyMovement : MonoBehaviour
 
         if (randomValue <= 0.5f)
         {
-            // 70% 확률로 앞으로 이동
+            // 50% 확률로 앞으로 이동
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         }
         else if (randomValue <= 0.75f)
         {
-            // 15% 확률로 왼쪽으로 이동
+            // 25% 확률로 왼쪽으로 이동
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
         else
         {
-            // 15% 확률로 오른쪽으로 이동
+            // 25% 확률로 오른쪽으로 이동
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
     }
