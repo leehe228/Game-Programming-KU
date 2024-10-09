@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;        // 앞으로 나아가는 속도
-    public float sideSpeed = 2f;        // 좌우로 움직이는 속도
-    public float sideMovementFrequency = 0.5f; // 좌우 움직임 빈도
+    /* public float moveSpeed = 5f;        // 앞으로 나아가는 속도
+    public float sideSpeed = 5f;        // 좌우로 움직이는 속도
+    public float sideMovementFrequency = 0.1f; // 좌우 움직임 빈도
 
     private Rigidbody rb;
     private float nextSideMoveTime = 0f;
@@ -37,6 +37,43 @@ public class EnemyMovement : MonoBehaviour
         }
 
         if (transform.position.z > 316) {
+            Destroy(gameObject);
+        }
+    }*/
+
+    [Tooltip("적의 이동 속도")]
+    [SerializeField] float moveSpeed = 3.0f;
+
+    private void Update()
+    {
+        MoveRandomly();
+    }
+
+    private void MoveRandomly()
+    {
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue <= 0.5f)
+        {
+            // 70% 확률로 앞으로 이동
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        }
+        else if (randomValue <= 0.75f)
+        {
+            // 15% 확률로 왼쪽으로 이동
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            // 15% 확률로 오른쪽으로 이동
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
             Destroy(gameObject);
         }
     }
