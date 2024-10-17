@@ -10,6 +10,11 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (GameObject.Find("Game Manager").GetComponent<GameManager>().hpCount == 0
+            || GameObject.Find("Game Manager").GetComponent<GameManager>().killCount == 10) {
+            return;
+        } 
+        
         // Check if the left mouse button is clicked
         if (Input.GetMouseButtonDown(0))
         {
@@ -23,13 +28,13 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         
         // Get the Rigidbody component from the instantiated bullet
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        /* Rigidbody rb = bullet.GetComponent<Rigidbody>();
         
         // Set the velocity of the bullet to shoot it forward
         if (rb != null)
         {
             rb.velocity = firePoint.forward * bulletSpeed;
-        }
+        }*/ 
 
         // Destroy the bullet after 10 seconds
         Destroy(bullet, 10f);

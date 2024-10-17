@@ -46,6 +46,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.Find("Game Manager").GetComponent<GameManager>().hpCount == 0
+            || GameObject.Find("Game Manager").GetComponent<GameManager>().killCount == 10) {
+            return;
+        } 
+
         MoveRandomly();
     }
 
@@ -70,11 +75,21 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /* private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
             Destroy(gameObject);
+            GameObject.Find("Game Manager").GetComponent<GameManager>().SubtractHpCount();
+        }
+    }*/
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyGoal"))
+        {
+            Destroy(gameObject);
+            GameObject.Find("Game Manager").GetComponent<GameManager>().SubtractHpCount();
         }
     }
 }

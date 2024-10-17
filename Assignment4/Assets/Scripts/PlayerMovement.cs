@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("Game Manager").GetComponent<GameManager>().hpCount == 0
+            || GameObject.Find("Game Manager").GetComponent<GameManager>().killCount == 10) {
+            return;
+        } 
+
         if (Input.GetKey(KeyCode.W)) 
         {
             transform.Translate(0, 0, -speed * Time.deltaTime);
