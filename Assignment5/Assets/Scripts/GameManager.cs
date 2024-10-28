@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int killCount = 0;
-    public int hpCount = 10;
+    public int hpCount = 30;
 
     public RawImage winImage;
     public RawImage loseImage;
@@ -50,6 +50,15 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Over");
             loseImage.gameObject.SetActive(true);
             winImage.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Debug.Log("Player hit by enemy bullet");
+            SubtractHpCount();
         }
     }
 }

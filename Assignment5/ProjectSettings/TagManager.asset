@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Bullet
   - EnemyGoal
+  - EnemyBullet
+  - Pillar
   layers:
   - Default
   - TransparentFX
