@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyFSM : MonoBehaviour
 {
+    GameObject gameManager;
     public Sight sightSensor;
     public Transform[] pillarTransforms;
     public Transform nearestPillarTransform;
@@ -26,12 +27,13 @@ public class EnemyFSM : MonoBehaviour
 
     public enum EnemyState 
     {
-        GoToBase, AttackBase, ChasePlayer, AttackPlayer, Run
+        GoToNearestPillar, AttackNearestPillar, ChasePlayer, ShootToPlayer, Run
     }
     public EnemyState currentState;
 
     private void Awake()
     {
+        gameManager = GameObject.Find("Game Manager");
         runPoint = Vector3.zero;
 
         if (boatMesh == null)
@@ -49,17 +51,17 @@ public class EnemyFSM : MonoBehaviour
     {
         switch (currentState)
         {
-            case EnemyState.GoToBase:
-                GoToBase();
+            case EnemyState.GoToNearestPillar:
+                GoToNearestPillar();
                 break;
-            case EnemyState.AttackBase:
-                AttackBase();
+            case EnemyState.AttackNearestPillar:
+                AttackNearestPillar();
                 break;
             case EnemyState.ChasePlayer:
                 ChasePlayer();
                 break;
-            case EnemyState.AttackPlayer:
-                AttackPlayer();
+            case EnemyState.ShootToPlayer:
+                ShootToPlayer();
                 break;
             case EnemyState.Run:
                 Run();
@@ -90,9 +92,9 @@ public class EnemyFSM : MonoBehaviour
         nearestPillarTransform = nearestPillar;
     }
 
-    void GoToBase() 
+    void GoToNearestPillar() 
     {
-        // Debug.Log("GoToBase");
+        // Debug.Log("GoToNearestPillar");
         if (sightSensor.detectedObject != null)
         {
             currentState = EnemyState.ChasePlayer;
@@ -113,19 +115,19 @@ public class EnemyFSM : MonoBehaviour
 
         if (distanceToBase < baseAttackDistance)
         {
-            currentState = EnemyState.AttackBase;
+            currentState = EnemyState.AttackNearestPillar;
         }
     }
 
-    void AttackBase() 
+    void AttackNearestPillar() 
     {
-        // Debug.Log("AttackBase");
+        // Debug.Log("AttackNearestPillar");
         FindNearestPillar();
 
-        // Pillar 이 파괴되면 GoToBase 상태로 변경
+        // Pillar 이 파괴되면 GoToNearestPillar 상태로 변경
         if (nearestPillarTransform == null)
         {
-            currentState = EnemyState.AttackPlayer;
+            currentState = EnemyState.GoToNearestPillar;
             return;
         }
 
@@ -143,16 +145,16 @@ public class EnemyFSM : MonoBehaviour
             }
         }
 
-        // 가장 가까운 pillar 와 거리가 baseAttackDistance 보다 멀어지면 GoToBase 상태로 변경
+        // 가장 가까운 pillar 와 거리가 baseAttackDistance 보다 멀어지면 GoToNearestPillar 상태로 변경
         float distanceToBase = Vector3.Distance(transform.position, nearestPillarTransform.position);
         if (distanceToBase > baseAttackDistance)
         {
-            currentState = EnemyState.GoToBase;
+            currentState = EnemyState.GoToNearestPillar;
             return;
         }
 
         LookTo(nearestPillarTransform.position);
-        Shoot();
+        ShootBullet();
     }
 
     void ChasePlayer() 
@@ -160,7 +162,7 @@ public class EnemyFSM : MonoBehaviour
         Debug.Log("ChasePlayer");
         if (sightSensor.detectedObject == null)
         {
-            currentState = EnemyState.GoToBase;
+            currentState = EnemyState.GoToNearestPillar;
             return;
         }
 
@@ -168,24 +170,24 @@ public class EnemyFSM : MonoBehaviour
 
         if (distanceToPlayer < playerAttackDistance)
         {
-            currentState = EnemyState.AttackPlayer;
+            currentState = EnemyState.ShootToPlayer;
         }
 
         LookTo(sightSensor.detectedObject.transform.position);
         transform.parent.position = Vector3.MoveTowards(transform.parent.position, sightSensor.detectedObject.transform.position, 0.1f);
     }
 
-    void AttackPlayer() 
+    void ShootToPlayer() 
     {
-        // Debug.Log("AttackPlayer");
+        // Debug.Log("ShootToPlayer");
         if (sightSensor.detectedObject == null)
         {
-            currentState = EnemyState.GoToBase;
+            currentState = EnemyState.GoToNearestPillar;
             return;
         }
 
         LookTo(sightSensor.detectedObject.transform.position);
-        Shoot();
+        ShootBullet();
 
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
 
@@ -204,7 +206,7 @@ public class EnemyFSM : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, baseAttackDistance);
     }
 
-    void Shoot()
+    void ShootBullet()
     {
         var timeSinceLastShoot = Time.time - lastShootTime;
         if (timeSinceLastShoot > fireRate)
@@ -227,7 +229,7 @@ public class EnemyFSM : MonoBehaviour
         transform.parent.forward = directionToPosition;
     }
 
-    void Disembark()
+    void DisembarkShip()
     {
         isEmbarked = true;
         // 배를 안보이게
@@ -271,7 +273,7 @@ public class EnemyFSM : MonoBehaviour
 
         if (Vector3.Distance(transform.parent.position, runPoint) < 3f)
         {
-            currentState = EnemyState.GoToBase;
+            currentState = EnemyState.GoToNearestPillar;
             runPoint = Vector3.zero;
         }
     }
@@ -280,7 +282,7 @@ public class EnemyFSM : MonoBehaviour
     {
         if (other.CompareTag("EnemyGoal") && !isEmbarked)
         {
-            Disembark();
+            DisembarkShip();
         }
 
         /* else if (other.CompareTag("EnemyGoal") && isEmbarked)
@@ -298,6 +300,7 @@ public class EnemyFSM : MonoBehaviour
                 hp--;
             } else {
                 Destroy(gameObject.transform.parent.gameObject);
+                gameManager.GetComponent<GameManager>().AddKillCount();
             }
 
             if (Random.Range(0, 10) < (10 - hp) && currentState != EnemyState.Run && isEmbarked)
