@@ -246,11 +246,16 @@ public class EnemyFSM : MonoBehaviour
         // X, Z 축 현재 위치 기준 +- 20 ~ 30 범위 내 랜덤한 지점으로 이동
         if (runPoint == Vector3.zero)
         {
-            float randomX = Random.Range(20f, 30f) * (Random.Range(0, 2) == 0 ? 1 : -1);
-            float randomZ = Random.Range(10f, 30f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            float randomX = Random.Range(10f, 20f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            float randomZ = Random.Range(10f, 20f) * (Random.Range(0, 2) == 0 ? 1 : -1);
 
-            runPoint = new Vector3(randomX + gameObject.transform.position.x, transform.parent.position.y, 
-                randomZ + gameObject.transform.position.z);
+            float runX = gameObject.transform.position.x + randomX;
+            float runZ = gameObject.transform.position.z + randomZ;
+
+            runX = Mathf.Clamp(runX, 209.5f, 282.7f);
+            runZ = Mathf.Clamp(runZ, 326.5f, 353.6f);
+
+            runPoint = new Vector3(runX, transform.parent.position.y, runZ);
 
             LookTo(runPoint);
         }
@@ -272,10 +277,10 @@ public class EnemyFSM : MonoBehaviour
             Disembark();
         }
 
-        else if (other.CompareTag("EnemyGoal") && isEmbarked)
+        /* else if (other.CompareTag("EnemyGoal") && isEmbarked)
         {
             Embark();
-        }
+        }*/
 
         if (other.CompareTag("Bullet"))
         {
@@ -289,7 +294,7 @@ public class EnemyFSM : MonoBehaviour
                 Destroy(gameObject.transform.parent.gameObject);
             }
 
-            if (Random.Range(0, 10) < (10 - hp) && currentState != EnemyState.Run)
+            if (Random.Range(0, 10) < (10 - hp) && currentState != EnemyState.Run && isEmbarked)
             {
                 Debug.Log("Run");
                 currentState = EnemyState.Run;
