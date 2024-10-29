@@ -63686,6 +63686,105 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 956bd2acf7aae244dac8fc20cf57858d, type: 3}
+--- !u!1 &2147238016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147238017}
+  m_Layer: 0
+  m_Name: vfxgraph_Explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147238017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147238016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 195.28569, y: 79.33775, z: 317.8923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1054825089395304144
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 201.33678
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 73.989334
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 319.60623
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531737924037287881, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8522642023964577437, guid: 27840670bda134c5fbada33dbab03706,
+        type: 3}
+      propertyPath: m_Name
+      value: vfx_Explosion_tut
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27840670bda134c5fbada33dbab03706, type: 3}
 --- !u!1001 &1638912315502429292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64127,3 +64226,5 @@ SceneRoots:
   - {fileID: 670284171}
   - {fileID: 1435069493}
   - {fileID: 982703001}
+  - {fileID: 1054825089395304144}
+  - {fileID: 2147238017}
