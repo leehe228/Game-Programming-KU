@@ -17,14 +17,22 @@ public class EnemyFSM : MonoBehaviour
     public GameObject boatMesh;
     public Transform firePoint;
 
+    public Vector3 runPoint;
+
+    public int hp = 10;
+
+    public bool isEmbarked = false;
+
     public enum EnemyState 
     {
-        GoToBase, AttackBase, ChasePlayer, AttackPlayer
+        GoToBase, AttackBase, ChasePlayer, AttackPlayer, Run
     }
     public EnemyState currentState;
 
     private void Awake()
     {
+        runPoint = Vector3.zero;
+
         if (boatMesh == null)
         {
             boatMesh = transform.parent.Find("Boat").gameObject;
@@ -46,6 +54,9 @@ public class EnemyFSM : MonoBehaviour
                 break;
             case EnemyState.AttackPlayer:
                 AttackPlayer();
+                break;
+            case EnemyState.Run:
+                Run();
                 break;
         }
     }
@@ -75,7 +86,7 @@ public class EnemyFSM : MonoBehaviour
 
     void GoToBase() 
     {
-        Debug.Log("GoToBase");
+        // Debug.Log("GoToBase");
         if (sightSensor.detectedObject != null)
         {
             currentState = EnemyState.ChasePlayer;
@@ -102,7 +113,7 @@ public class EnemyFSM : MonoBehaviour
 
     void AttackBase() 
     {
-        Debug.Log("AttackBase");
+        // Debug.Log("AttackBase");
         FindNearestPillar();
 
         // Pillar 이 파괴되면 GoToBase 상태로 변경
@@ -160,7 +171,7 @@ public class EnemyFSM : MonoBehaviour
 
     void AttackPlayer() 
     {
-        Debug.Log("AttackPlayer");
+        // Debug.Log("AttackPlayer");
         if (sightSensor.detectedObject == null)
         {
             currentState = EnemyState.GoToBase;
@@ -195,7 +206,7 @@ public class EnemyFSM : MonoBehaviour
             lastShootTime = Time.time;
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
             
-            Debug.Log("Shoot");
+            // Debug.Log("Shoot");
 
             // 총알을 앞으로 가도록 add force
             bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
@@ -212,6 +223,7 @@ public class EnemyFSM : MonoBehaviour
 
     void Disembark()
     {
+        isEmbarked = true;
         // 배를 안보이게
         if (boatMesh != null)
         {
@@ -219,11 +231,69 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
+    void Embark()
+    {
+        isEmbarked = false;
+        // 배를 보이게
+        if (boatMesh != null)
+        {
+            boatMesh.SetActive(true);
+        }
+    }
+
+    void Run()
+    {
+        // X, Z 축 현재 위치 기준 +- 20 ~ 30 범위 내 랜덤한 지점으로 이동
+        if (runPoint == Vector3.zero)
+        {
+            float randomX = Random.Range(20f, 30f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            float randomZ = Random.Range(10f, 30f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+
+            runPoint = new Vector3(randomX + gameObject.transform.position.x, transform.parent.position.y, 
+                randomZ + gameObject.transform.position.z);
+
+            LookTo(runPoint);
+        }
+
+        Vector3 targetPosition = new Vector3(runPoint.x, transform.parent.position.y, runPoint.z);
+        transform.parent.position = Vector3.MoveTowards(transform.parent.position, targetPosition, 0.5f);
+
+        if (Vector3.Distance(transform.parent.position, runPoint) < 3f)
+        {
+            currentState = EnemyState.GoToBase;
+            runPoint = Vector3.zero;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyGoal"))
+        if (other.CompareTag("EnemyGoal") && !isEmbarked)
         {
             Disembark();
+        }
+
+        else if (other.CompareTag("EnemyGoal") && isEmbarked)
+        {
+            Embark();
+        }
+
+        if (other.CompareTag("Bullet"))
+        {
+            Debug.Log("hit");
+            Destroy(other.gameObject);
+
+            if (hp > 0)
+            {
+                hp--;
+            } else {
+                Destroy(gameObject.transform.parent.gameObject);
+            }
+
+            if (Random.Range(0, 10) < (10 - hp) && currentState != EnemyState.Run)
+            {
+                Debug.Log("Run");
+                currentState = EnemyState.Run;
+            }
         }
     }
 }

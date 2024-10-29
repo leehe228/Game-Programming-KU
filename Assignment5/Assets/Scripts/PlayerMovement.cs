@@ -9,11 +9,16 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;     // Force of the player's jump
 
     private Rigidbody rb;
+    private float currentYRotation = 0f; // Variable to store the controlled Y rotation
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
+        // Lock rotation on all axes initially
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        currentYRotation = transform.eulerAngles.y; // Initialize Y rotation
     }
 
     // Update is called once per frame
@@ -43,7 +48,12 @@ public class PlayerMovement : MonoBehaviour
 
         // Rotate the player based on mouse movement
         float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(0, mouseX * rotationSpeed * Time.deltaTime, 0);
+        currentYRotation += mouseX * rotationSpeed * Time.deltaTime; // Update the controlled Y rotation
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentYRotation, transform.eulerAngles.z);
+
+        // Rotate the camera based on mouse movement for up and down
+        float mouseY = Input.GetAxis("Mouse Y");
+        Camera.main.transform.Rotate(-mouseY * rotationSpeed * Time.deltaTime / 10f, 0, 0);
 
         // Player jump using Spacebar
         if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.01f)

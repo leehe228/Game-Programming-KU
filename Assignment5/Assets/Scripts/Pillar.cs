@@ -7,8 +7,14 @@ public class Pillar : MonoBehaviour
 {
     public int triggerCount = 0;
     public int maxTriggers = 10;
+    public GameObject GameManager;
 
     public ParticleSystem explosionParticle;
+
+    void Awake()
+    {
+        GameManager = GameObject.Find("Game Manager");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,13 +23,14 @@ public class Pillar : MonoBehaviour
         {
             triggerCount++;
 
+            ParticleSystem particle = Instantiate(explosionParticle, other.transform.position, Quaternion.identity);
+            particle.Play();
+            Destroy(other.gameObject);
+
             // Check if the trigger count has reached the max limit
             if (triggerCount >= maxTriggers)
             {
-                if (explosionParticle != null)
-                {
-                    explosionParticle.Play();
-                }
+                GameManager.GetComponent<GameManager>().PillarDestroyed();
                 Destroy(gameObject);
             }
         }

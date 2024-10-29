@@ -1238,6 +1238,9 @@ MonoBehaviour:
   fireRate: 1
   boatMesh: {fileID: 4283582829349359347}
   firePoint: {fileID: 2459756846719580698}
+  runPoint: {x: 0, y: 0, z: 0}
+  hp: 10
+  isEmbarked: 0
   currentState: 0
 --- !u!65 &3479659693326857514
 BoxCollider:
@@ -1249,7 +1252,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1258,8 +1261,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.66, z: 1}
+  m_Center: {x: 0, y: 0.36, z: 0}
 --- !u!1 &4348631809113114071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1291,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 250.33693, y: 45.18, z: 308.68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2610817898654157864}
@@ -1317,7 +1320,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.15, y: 1.79, z: 4.12}
-  m_Center: {x: 0, y: 1.2, z: 0}
+  m_Center: {x: 0, y: 1.29, z: 0}
 --- !u!54 &3569807334033924744
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1343,7 +1346,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1 &5380999502908436990
 GameObject:

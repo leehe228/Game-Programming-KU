@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
         }
     }*/
 
-    void OnTriggerEnter(Collider other)
+    /* void OnTriggerEnter(Collider other)
     {
         Debug.Log("Trigger collision detected!");
 
@@ -60,5 +60,5 @@ public class Bullet : MonoBehaviour
             // Optionally destroy the bullet if it hits anything else
             // Destroy(gameObject);
         }
-    }
+    } */
 }

@@ -8,17 +8,20 @@ public class GameManager : MonoBehaviour
 {
     public int killCount = 0;
     public int hpCount = 30;
+    public int pillarCount = 8;
 
     public RawImage winImage;
     public RawImage loseImage;
 
     public TextMeshProUGUI killCountText;
     public TextMeshProUGUI hpCountText;
+    public TextMeshProUGUI baseHpCountText;
 
     void Start()
     {
-        killCountText.text = "Kill: " + killCount;
-        hpCountText.text = "HP: " + hpCount;
+        killCountText.text = "Kill: " + killCount + "/10";
+        hpCountText.text = "Player HP: " + hpCount + "/30";
+        baseHpCountText.text = "Base (Pillar) HP: " + pillarCount + "/8";
     }
 
     public void AddKillCount()
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
         if (killCount < 10) 
         {
             killCount++;
-            killCountText.text = "Kill: " + killCount;
+            killCountText.text = "Kill: " + killCount + "/10";
         }
 
         if (killCount == 10)
@@ -53,12 +56,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void PillarDestroyed()
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (pillarCount > 0) 
         {
-            Debug.Log("Player hit by enemy bullet");
-            SubtractHpCount();
+            pillarCount--;
+            baseHpCountText.text = "Base (Pillar) HP: " + pillarCount + "/8";
+        }
+
+        if (pillarCount == 0) 
+        {
+            Debug.Log("Game Over");
+            loseImage.gameObject.SetActive(true);
+            winImage.gameObject.SetActive(false);
         }
     }
 }
