@@ -35,8 +35,10 @@ public class GameManager : MonoBehaviour
         if (killCount == 10)
         {
             Debug.Log("You Win");
-            winImage.gameObject.SetActive(true);
-            loseImage.gameObject.SetActive(false);
+            // winImage.gameObject.SetActive(true);
+            // loseImage.gameObject.SetActive(false);
+            // Win 씬으로 이동
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Win");
         }
     }
 
@@ -51,8 +53,10 @@ public class GameManager : MonoBehaviour
         if (hpCount == 0) 
         {
             Debug.Log("Game Over");
-            loseImage.gameObject.SetActive(true);
-            winImage.gameObject.SetActive(false);
+            // loseImage.gameObject.SetActive(true);
+            // winImage.gameObject.SetActive(false);
+            // Lose 씬으로 이동
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
         }
     }
 
@@ -67,8 +71,10 @@ public class GameManager : MonoBehaviour
         if (pillarCount == 0) 
         {
             Debug.Log("Game Over");
-            loseImage.gameObject.SetActive(true);
-            winImage.gameObject.SetActive(false);
+            // loseImage.gameObject.SetActive(true);
+            // winImage.gameObject.SetActive(false);
+            // Lose 씬으로 이동
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
         }
     }
 }

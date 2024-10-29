@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; 
+    public GameObject[] enemyPrefab; 
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 1f, 1f);
+        InvokeRepeating("SpawnEnemy", 3f, 3f);
     }
 
     // Update is called once per frame
@@ -28,9 +28,11 @@ public class Spawner : MonoBehaviour
         // Generate random position within the specified boundaries
         float randomX = Random.Range(209, 282);
         float randomZ = Random.Range(245, 266);
-        Vector3 spawnPosition = new Vector3(randomX, 45.6f, randomZ);
+        Vector3 spawnPosition = new Vector3(randomX, 49.2f, randomZ);
 
         // Instantiate the enemy at the random position
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        // 3개중에 1개 랜덤으로 생성
+        int randomIndex = Random.Range(0, enemyPrefab.Length);
+        Instantiate(enemyPrefab[randomIndex], spawnPosition, Quaternion.identity);
     }
 }

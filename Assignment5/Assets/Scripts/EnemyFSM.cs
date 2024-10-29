@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyFSM : MonoBehaviour
@@ -37,6 +38,11 @@ public class EnemyFSM : MonoBehaviour
         {
             boatMesh = transform.parent.Find("Boat").gameObject;
         }
+    }
+
+    private void Start()
+    {
+        pillarTransforms = GameObject.FindGameObjectsWithTag("Pillar").Select(p => p.transform).ToArray();
     }
 
     void Update()
