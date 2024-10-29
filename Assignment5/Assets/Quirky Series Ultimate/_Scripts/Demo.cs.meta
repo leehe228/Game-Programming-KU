@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 19fceba84a30447448b15ed8af37e42e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 119975
+  packageName: Quirky Series - Pet Animals Vol.1
+  packageVersion: 1.4
+  assetPath: Assets/Quirky Series Ultimate/_Scripts/Demo.cs
+  uploadId: 566566
