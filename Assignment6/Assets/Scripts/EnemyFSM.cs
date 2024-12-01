@@ -109,7 +109,7 @@ public class EnemyFSM : MonoBehaviour
             return;
         }
         LookTo(nearestPillarTransform.position);
-        transform.parent.position = Vector3.MoveTowards(transform.parent.position, nearestPillarTransform.position, 0.1f);
+        transform.parent.position = Vector3.MoveTowards(transform.parent.position, nearestPillarTransform.position, 10f * Time.deltaTime);
 
         float distanceToBase = Vector3.Distance(transform.position, nearestPillarTransform.position);
 
@@ -174,7 +174,7 @@ public class EnemyFSM : MonoBehaviour
         }
 
         LookTo(sightSensor.detectedObject.transform.position);
-        transform.parent.position = Vector3.MoveTowards(transform.parent.position, sightSensor.detectedObject.transform.position, 0.1f);
+        transform.parent.position = Vector3.MoveTowards(transform.parent.position, sightSensor.detectedObject.transform.position, 10f * Time.deltaTime);
     }
 
     void ShootToPlayer() 
@@ -269,7 +269,7 @@ public class EnemyFSM : MonoBehaviour
         }
 
         Vector3 targetPosition = new Vector3(runPoint.x, transform.parent.position.y, runPoint.z);
-        transform.parent.position = Vector3.MoveTowards(transform.parent.position, targetPosition, 0.5f);
+        transform.parent.position = Vector3.MoveTowards(transform.parent.position, targetPosition, 20f * Time.deltaTime);
 
         if (Vector3.Distance(transform.parent.position, runPoint) < 3f)
         {
