@@ -47,7 +47,10 @@ public class GameManager : MonoBehaviour
             baseHpSlider.value = pillarCount * pillarHp; // 현재 HP 설정
         }
 
-        baseTotalHp = pillarCount * (pillarTemp.maxTriggers - pillarTemp.triggerCount);
+        if (pillarTemp != null)
+        {
+            baseTotalHp = pillarCount * (pillarTemp.maxTriggers - pillarTemp.triggerCount);
+        }
     }
 
     public void AddKillCount()

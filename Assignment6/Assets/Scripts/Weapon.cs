@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;  // Assign the bullet prefab in the Inspector
     public Transform firePoint;      // Assign a fire point in the Inspector (where the bullet will be instantiated)
     public float bulletSpeed = 20f;  // Speed of the bullet
+    public Animator animator;
 
     void Update()
     {
@@ -25,6 +26,7 @@ public class Weapon : MonoBehaviour
 
     public void OnFire()
     {
+        animator.SetTrigger("isAttacking");
         FireBullet();
     }
 

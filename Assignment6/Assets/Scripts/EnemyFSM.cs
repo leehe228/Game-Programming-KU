@@ -24,6 +24,8 @@ public class EnemyFSM : MonoBehaviour
     public int hp = 10;
 
     public bool isEmbarked = false;
+    public Animator animator;
+    public bool isDead = false;
 
     public enum EnemyState 
     {
@@ -49,6 +51,11 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         switch (currentState)
         {
             case EnemyState.GoToNearestPillar:
@@ -94,6 +101,7 @@ public class EnemyFSM : MonoBehaviour
 
     void GoToNearestPillar() 
     {
+        animator.SetBool("isRunning", true); // Run 애니메이션 실행
         // Debug.Log("GoToNearestPillar");
         if (sightSensor.detectedObject != null)
         {
@@ -121,6 +129,7 @@ public class EnemyFSM : MonoBehaviour
 
     void AttackNearestPillar() 
     {
+        animator.SetTrigger("isShooting"); // Shoot 애니메이션 실행
         // Debug.Log("AttackNearestPillar");
         FindNearestPillar();
 
@@ -159,6 +168,7 @@ public class EnemyFSM : MonoBehaviour
 
     void ChasePlayer() 
     {
+        animator.SetBool("isRunning", true); // Run 애니메이션 실행
         Debug.Log("ChasePlayer");
         if (sightSensor.detectedObject == null)
         {
@@ -170,6 +180,7 @@ public class EnemyFSM : MonoBehaviour
 
         if (distanceToPlayer < playerAttackDistance)
         {
+            animator.SetBool("isRunning", false); // Idle 상태로 전환
             currentState = EnemyState.ShootToPlayer;
         }
 
@@ -179,6 +190,7 @@ public class EnemyFSM : MonoBehaviour
 
     void ShootToPlayer() 
     {
+        animator.SetTrigger("isShooting"); // Shoot 애니메이션 실행
         // Debug.Log("ShootToPlayer");
         if (sightSensor.detectedObject == null)
         {
@@ -251,6 +263,7 @@ public class EnemyFSM : MonoBehaviour
 
     void Run()
     {
+        animator.SetBool("isRunning", true); // Run 애니메이션 실행
         // X, Z 축 현재 위치 기준 +- 20 ~ 30 범위 내 랜덤한 지점으로 이동
         if (runPoint == Vector3.zero)
         {
@@ -299,15 +312,26 @@ public class EnemyFSM : MonoBehaviour
             {
                 hp--;
             } else {
-                Destroy(gameObject.transform.parent.gameObject);
-                gameManager.GetComponent<GameManager>().AddKillCount();
+                isDead = true;
+                StartCoroutine(PlayDeathAnimation()); // Death 애니메이션 실행 후 삭제
+                // Destroy(gameObject.transform.parent.gameObject);
+                // gameManager.GetComponent<GameManager>().AddKillCount();
             }
 
             if (Random.Range(0, 10) < (10 - hp) && currentState != EnemyState.Run && isEmbarked)
             {
+                animator.SetBool("isRunning", true); // Run 애니메이션 실행
                 Debug.Log("Run");
                 currentState = EnemyState.Run;
             }
         }
+    }
+
+    IEnumerator PlayDeathAnimation()
+    {
+        animator.SetTrigger("isDead"); // Death 애니메이션 실행
+        yield return new WaitForSeconds(1.5f); // Death 애니메이션 길이만큼 대기
+        Destroy(gameObject.transform.parent.gameObject);
+        gameManager.GetComponent<GameManager>().AddKillCount();
     }
 }

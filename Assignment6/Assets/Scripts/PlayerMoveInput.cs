@@ -9,6 +9,7 @@ public class PlayerMoveInput : MonoBehaviour
 
     private Vector2 movementValue;
     private float lookValue;
+    public Animator animator;
 
     private void Awake()
     {
@@ -19,6 +20,15 @@ public class PlayerMoveInput : MonoBehaviour
     public void OnMove(InputValue value)
     {
         movementValue = value.Get<Vector2>() * speed;
+
+        if (movementValue != Vector2.zero)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
     public void OnLook(InputValue value)
@@ -38,6 +48,7 @@ public class PlayerMoveInput : MonoBehaviour
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
+            animator.SetTrigger("isJumping");
             GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }

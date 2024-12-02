@@ -110,6 +110,7 @@ MonoBehaviour:
   runPoint: {x: 0, y: 0, z: 0}
   hp: 10
   isEmbarked: 0
+  animator: {fileID: 6837140838813221301}
   currentState: 0
 --- !u!1 &6837140838805670317
 GameObject:
@@ -252,7 +253,7 @@ Animator:
   m_GameObject: {fileID: 6837140838805673315}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3d06f9e13e57b434dbbb7e7b64c158e1, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d6194de5ed854c29bb0cfedc57317da, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
