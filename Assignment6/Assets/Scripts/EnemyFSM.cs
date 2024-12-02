@@ -293,6 +293,11 @@ public class EnemyFSM : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (isDead) 
+        {
+            return;
+        } 
+        
         if (other.CompareTag("EnemyGoal") && !isEmbarked)
         {
             DisembarkShip();
