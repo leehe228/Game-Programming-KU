@@ -16,6 +16,10 @@ public class PlayerMoveInput : MonoBehaviour
     {
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    void Start()
+    {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 

@@ -7,7 +7,7 @@ public class Pillar : MonoBehaviour
 {
     public int index;
     public int triggerCount = 0;
-    public int maxTriggers = 20;
+    public int maxTriggers = 50;
     public GameObject GameManager;
 
     public ParticleSystem explosionParticle;
