@@ -7,7 +7,7 @@ public class Pillar : MonoBehaviour
 {
     public int index;
     public int triggerCount = 0;
-    public int maxTriggers = 10;
+    public int maxTriggers = 20;
     public GameObject GameManager;
 
     public ParticleSystem explosionParticle;
@@ -31,6 +31,8 @@ public class Pillar : MonoBehaviour
             particle.Play();
             Destroy(other.gameObject);
             Destroy(particle.gameObject, particle.main.duration);
+
+            GameManager.GetComponent<GameManager>().PillarHit();
 
             HealthDisplayManager.GetComponent<HealthDisplayManager>().UpdatePillarHealth(index, maxTriggers - triggerCount);
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
 {
@@ -16,10 +17,15 @@ public class Weapon : MonoBehaviour
         } 
         
         // Check if the left mouse button is clicked
-        if (Input.GetMouseButtonDown(0))
+        /* if (Input.GetMouseButtonDown(0))
         {
             FireBullet();
-        }
+        } */
+    }
+
+    public void OnFire()
+    {
+        FireBullet();
     }
 
     void FireBullet()

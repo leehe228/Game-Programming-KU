@@ -269,7 +269,7 @@ public class EnemyFSM : MonoBehaviour
         }
 
         Vector3 targetPosition = new Vector3(runPoint.x, transform.parent.position.y, runPoint.z);
-        transform.parent.position = Vector3.MoveTowards(transform.parent.position, targetPosition, 20f * Time.deltaTime);
+        transform.parent.position = Vector3.MoveTowards(transform.parent.position, targetPosition, 14f * Time.deltaTime);
 
         if (Vector3.Distance(transform.parent.position, runPoint) < 3f)
         {
