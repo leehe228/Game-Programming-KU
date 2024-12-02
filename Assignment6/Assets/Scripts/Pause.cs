@@ -18,6 +18,22 @@ public class Pause : MonoBehaviour
         resumeButton.onClick.AddListener(OnResumePressed);
     }
 
+    void Start()
+    {
+        isPaused = false;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        gameAudioMixer.SetFloat("SFX", 0f);
+        gameAudioMixer.TransitionToSnapshots(
+            new AudioMixerSnapshot[] { gameAudioMixer.FindSnapshot("Default") }, 
+            new float[] { 1f }, 
+            0f
+        );
+    }
+
     void OnResumePressed()
     {
         if (isPaused)

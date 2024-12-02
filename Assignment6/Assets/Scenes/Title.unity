@@ -159,6 +159,7 @@ Transform:
   - {fileID: 1843575610}
   - {fileID: 95796551}
   - {fileID: 315290991}
+  - {fileID: 1637676745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &39569649
@@ -3732,7 +3733,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 196844135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 202024703}
+        m_TargetAssemblyTypeName: Title, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &196844135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18461,6 +18474,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!43 &715658143
 Mesh:
   m_ObjectHideFlags: 0
@@ -29210,6 +29224,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!1001 &1127768245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30465,6 +30480,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!1001 &1167914998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38421,6 +38437,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!1 &1371416267
 GameObject:
   m_ObjectHideFlags: 0
@@ -43823,6 +43840,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!4 &1543280415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b609ba441c7854d8fa84ff1fb4e968b7,
@@ -45419,6 +45437,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!1 &1626290276
 GameObject:
   m_ObjectHideFlags: 0
@@ -45857,9 +45876,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637676744}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257.32, y: 53.21, z: 353.63}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 56.5, y: 12.600002, z: 54.119995}
+  m_LocalScale: {x: 2, y: 5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 452683705}
@@ -45871,7 +45890,7 @@ Transform:
   - {fileID: 1188477249}
   - {fileID: 664127287}
   - {fileID: 1457812108}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 25825675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1645086790
 PrefabInstance:
@@ -52593,6 +52612,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!1001 &2004461629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56167,6 +56187,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 867534923637229078, guid: 03031a7e9607c47a6ba807fae2cc52ef,
     type: 3}
   HealthDisplayManager: {fileID: 0}
+  explosiveAudioSource: {fileID: 0}
 --- !u!4 &2136954552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b609ba441c7854d8fa84ff1fb4e968b7,
@@ -56908,7 +56929,6 @@ SceneRoots:
   - {fileID: 454736213}
   - {fileID: 1958265793}
   - {fileID: 106271023}
-  - {fileID: 1637676745}
   - {fileID: 25825675}
   - {fileID: 330585546}
   - {fileID: 435728007}
