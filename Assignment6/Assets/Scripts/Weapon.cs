@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
     public GameManager gameManager;
 
     public GameObject LaserBeam;
+    public AudioSource shootAudioSource; // 총 쏘기 효과음
 
     void Start()
     {
@@ -50,6 +51,7 @@ public class Weapon : MonoBehaviour
             return;
         }
         animator.SetTrigger("isAttacking");
+        shootAudioSource.Play(); // 총 쏘기 효과음 재생
         FireBullet();
     }
 
@@ -68,6 +70,6 @@ public class Weapon : MonoBehaviour
         }*/ 
 
         // Destroy the bullet after 10 seconds
-        Destroy(bullet, 10f);
+        Destroy(bullet, 3f);
     }
 }

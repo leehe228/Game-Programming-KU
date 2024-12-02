@@ -15,6 +15,8 @@ public class Pillar : MonoBehaviour
 
     public GameObject HealthDisplayManager;
 
+    public AudioSource explosiveAudioSource;
+
     void Awake()
     {
         GameManager = GameObject.Find("Game Manager");
@@ -43,6 +45,7 @@ public class Pillar : MonoBehaviour
                 GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
 
                 GameManager.GetComponent<GameManager>().PillarDestroyed();
+                explosiveAudioSource.Play();
                 Destroy(gameObject);
                 Destroy(explosion, 2f);
             }

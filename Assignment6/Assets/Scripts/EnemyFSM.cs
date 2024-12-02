@@ -27,6 +27,10 @@ public class EnemyFSM : MonoBehaviour
     public Animator animator;
     public bool isDead = false;
 
+    // 효과음을 위한 필드 추가
+    public AudioSource walkAudioSource; // 걷기 효과음
+    public AudioSource shootAudioSource; // 총 쏘기 효과음
+
     public enum EnemyState 
     {
         GoToNearestPillar, AttackNearestPillar, ChasePlayer, ShootToPlayer, Run
@@ -111,6 +115,8 @@ public class EnemyFSM : MonoBehaviour
     void GoToNearestPillar() 
     {
         animator.SetBool("isRunning", true); // Run 애니메이션 실행
+        PlayWalkSound(); // 걷기 효과음 재생
+
         // Debug.Log("GoToNearestPillar");
         if (sightSensor.detectedObject != null)
         {
@@ -139,6 +145,8 @@ public class EnemyFSM : MonoBehaviour
     void AttackNearestPillar() 
     {
         animator.SetTrigger("isShooting"); // Shoot 애니메이션 실행
+        PlayShootSound(); // 총 쏘기 효과음 재생
+
         // Debug.Log("AttackNearestPillar");
         FindNearestPillar();
 
@@ -173,6 +181,23 @@ public class EnemyFSM : MonoBehaviour
 
         LookTo(nearestPillarTransform.position);
         ShootBullet();
+    }
+    
+    void PlayWalkSound()
+    {
+        if (!walkAudioSource.isPlaying) // 이미 재생 중이 아니면
+        {
+            if (isEmbarked)
+            {
+                walkAudioSource.Play();
+            }
+           
+        }
+    }
+
+    void PlayShootSound()
+    {
+        shootAudioSource.Play(); // 총 쏘기 효과음 재생
     }
 
     void ChasePlayer() 
@@ -240,6 +265,8 @@ public class EnemyFSM : MonoBehaviour
             // 총알을 앞으로 가도록 add force
             bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
             Destroy(bullet, 5f);
+
+            PlayShootSound(); // 총알 발사 시 효과음 재생
         }
     }
 

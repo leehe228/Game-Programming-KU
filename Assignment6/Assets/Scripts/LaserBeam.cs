@@ -20,6 +20,7 @@ public class LaserBeam : MonoBehaviour
     private bool isCooldownActive = false;
     private Image progressBarFill;
     public GameManager gameManager;
+    public AudioSource laserBeamAudioSource;
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class LaserBeam : MonoBehaviour
 
     IEnumerator ActivateLaser()
     {
+        laserBeamAudioSource.Play(); // 레이저 빔 효과음 재생
         isLaserActive = true;
         lineRenderer.enabled = true;
 
@@ -96,6 +98,7 @@ public class LaserBeam : MonoBehaviour
         isLaserActive = false;
         targetObject.SetActive(false);
         isCooldownActive = true;
+        laserBeamAudioSource.Stop(); // 레이저 빔 효과음 정지
 
         if (laserProgressBar != null)
         {
