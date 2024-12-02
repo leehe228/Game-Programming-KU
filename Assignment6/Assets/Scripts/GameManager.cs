@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public List<RawImage> killIndicators; // RawImage 10개를 담을 리스트
     public Texture newTexture; // 변경할 텍스처
 
+    public bool isMainGameStarted = false;
+
     void Start()
     {
         // killCountText.text = "Kill: " + killCount + "/10";
@@ -134,5 +136,15 @@ public class GameManager : MonoBehaviour
         {
             baseHpSlider.value = baseTotalHp;
         }
+    }
+
+    public void StartMainGame()
+    {
+        Invoke("UnlockMainGame", 1.6f);
+    }
+
+    private void UnlockMainGame()
+    {
+        isMainGameStarted = true;
     }
 }

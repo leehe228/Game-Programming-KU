@@ -10,8 +10,22 @@ public class Weapon : MonoBehaviour
     public float bulletSpeed = 20f;  // Speed of the bullet
     public Animator animator;
 
+    public GameManager gameManager;
+
+    public GameObject LaserBeam;
+
+    void Start()
+    {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    }
+
     void Update()
     {
+        if (!gameManager.isMainGameStarted)
+        {
+            return;
+        }
+        
         if (GameObject.Find("Game Manager").GetComponent<GameManager>().hpCount == 0
             || GameObject.Find("Game Manager").GetComponent<GameManager>().killCount == 10) {
             return;
@@ -26,6 +40,15 @@ public class Weapon : MonoBehaviour
 
     public void OnFire()
     {
+        if (!gameManager.isMainGameStarted)
+        {
+            return;
+        }
+
+        if (LaserBeam.GetComponent<LaserBeam>().isLaserActive)
+        {
+            return;
+        }
         animator.SetTrigger("isAttacking");
         FireBullet();
     }

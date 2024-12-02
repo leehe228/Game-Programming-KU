@@ -51,6 +51,10 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        if (!gameManager.GetComponent<GameManager>().isMainGameStarted) {
+            return;
+        }
+
         if (isDead)
         {
             return;

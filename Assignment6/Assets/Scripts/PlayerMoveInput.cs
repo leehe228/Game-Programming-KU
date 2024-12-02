@@ -10,11 +10,13 @@ public class PlayerMoveInput : MonoBehaviour
     private Vector2 movementValue;
     private float lookValue;
     public Animator animator;
+    public GameManager gameManager;
 
     private void Awake()
     {
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     public void OnMove(InputValue value)
@@ -38,6 +40,11 @@ public class PlayerMoveInput : MonoBehaviour
 
     void Update()
     {
+        if (!gameManager.isMainGameStarted)
+        {
+            return;
+        }
+        
         transform.Translate(
             -movementValue.x * Time.deltaTime,
             0,

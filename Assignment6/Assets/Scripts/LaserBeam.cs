@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class LaserBeam : MonoBehaviour
 {
@@ -15,9 +16,10 @@ public class LaserBeam : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private Coroutine damageCoroutine;
-    private bool isLaserActive = false;
+    public bool isLaserActive = false;
     private bool isCooldownActive = false;
     private Image progressBarFill;
+    public GameManager gameManager;
 
     void Start()
     {
@@ -41,11 +43,18 @@ public class LaserBeam : MonoBehaviour
             laserProgressBar.gameObject.SetActive(false); // 처음에는 Progress Bar 비활성화
             progressBarFill = laserProgressBar.fillRect.GetComponent<Image>();
         }
+
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isLaserActive && !isCooldownActive)
+        if (!gameManager.isMainGameStarted)
+        {
+            return;
+        }
+        
+        if (Keyboard.current.eKey.wasPressedThisFrame && !isLaserActive && !isCooldownActive)
         {
             StartCoroutine(ActivateLaser());
         }
